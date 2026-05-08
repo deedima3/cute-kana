@@ -1,0 +1,82 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/ryvenna/.gradle/daemon/8.11.1/com.cutekana.app-mergeDebugResources-63:/values-night-v8/values-night-v8.xml",
+            "map": [
+                {
+                    "source": "/home/ryvenna/Github/cute-kana/app/src/main/res/values-night/themes.xml",
+                    "from": {
+                        "startLines": "2,10",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,486",
+                        "endLines": "7,14",
+                        "endColumns": "12,12",
+                        "endOffsets": "428,780"
+                    },
+                    "to": {
+                        "startLines": "9,15",
+                        "startColumns": "4,4",
+                        "startOffsets": "687,1065",
+                        "endLines": "14,19",
+                        "endColumns": "12,12",
+                        "endOffsets": "1060,1359"
+                    }
+                },
+                {
+                    "source": "/home/ryvenna/.gradle/caches/8.11.1/transforms/fdf01780a601b44a9f9a821cea897357/transformed/appcompat-1.6.1/res/values-night-v8/values-night-v8.xml",
+                    "from": {
+                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,20",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,125,209,293,389,491,593,1364",
+                        "endColumns": "69,83,83,95,101,101,93,88",
+                        "endOffsets": "120,204,288,384,486,588,682,1448"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.cutekana.app-mergeDebugResources-63:/values-night-v8/values-night-v8.xml",
+            "map": [
+                {
+                    "source": "/home/ryvenna/Github/cute-kana/app/src/main/res/values-night/themes.xml",
+                    "from": {
+                        "startLines": "2,-1",
+                        "startColumns": "4,-1",
+                        "startOffsets": "55,-1",
+                        "endLines": "7,-1",
+                        "endColumns": "12,-1",
+                        "endOffsets": "423,-1"
+                    },
+                    "to": {
+                        "startLines": "9,15",
+                        "startColumns": "4,4",
+                        "startOffsets": "687,1060",
+                        "endLines": "14,19",
+                        "endColumns": "12,12",
+                        "endOffsets": "1055,1354"
+                    }
+                },
+                {
+                    "source": "/home/ryvenna/.gradle/caches/8.11.1/transforms/fdf01780a601b44a9f9a821cea897357/transformed/appcompat-1.6.1/res/values-night-v8/values-night-v8.xml",
+                    "from": {
+                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,20",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,125,209,293,389,491,593,1359",
+                        "endColumns": "69,83,83,95,101,101,93,88",
+                        "endOffsets": "120,204,288,384,486,588,682,1443"
+                    }
+                }
+            ]
+        }
+    ]
+}
