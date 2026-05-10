@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cute Kana - Learn Japanese the Kawaii Way 🌸</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sakura-pink: #FFB7C5;
+            --sakura-dark: #FF9AAE;
+            --lavender: #E6E6FA;
+            --lavender-dark: #D4D0E8;
+            --mint: #B5EAD7;
+            --mint-dark: #98D4BE;
+            --star-yellow: #FFF4BD;
+            --star-dark: #FFE999;
+            --soft-white: #FFFBF7;
+            --warm-gray: #8B7B8B;
+            --dark-text: #4A4A4A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, var(--soft-white) 0%, var(--lavender) 50%, var(--sakura-pink) 100%);
+            min-height: 100vh;
+            color: var(--dark-text);
+            overflow-x: hidden;
+        }
+
+        /* Floating particles animation */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--sakura-pink);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .particle:nth-child(2n) {
+            background: var(--mint);
+            width: 8px;
+            height: 8px;
+        }
+
+        .particle:nth-child(3n) {
+            background: var(--star-yellow);
+            width: 12px;
+            height: 12px;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            box-shadow: 
+                0 20px 60px rgba(255, 183, 197, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mascot-container {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+            position: relative;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .mascot {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--sakura-pink);
+            box-shadow: 
+                0 10px 30px rgba(255, 183, 197, 0.4),
+                inset 0 2px 10px rgba(255, 255, 255, 0.5);
+            background: linear-gradient(135deg, var(--soft-white), var(--lavender));
+        }
+
+        .mascot-glow {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(135deg, var(--sakura-pink), var(--mint), var(--star-yellow));
+            border-radius: 50%;
+            opacity: 0.4;
+            filter: blur(20px);
+            animation: pulse 3s infinite ease-in-out;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.6;
+            }
+        }
+
+        h1 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--sakura-dark), var(--mint-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            color: var(--warm-gray);
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        /* Version badge */
+        .version-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--sakura-pink), var(--lavender));
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(255, 183, 197, 0.4);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(255, 183, 197, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 25px rgba(255, 183, 197, 0.7);
+            }
+        }
+
+        .version-badge .sparkle {
+            animation: sparkle 1.5s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(180deg); }
+        }
+
+        /* Download button */
+        .download-section {
+            margin-top: 30px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(135deg, var(--sakura-dark), var(--sakura-pink));
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            padding: 20px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 
+                0 10px 30px rgba(255, 154, 174, 0.5),
+                inset 0 2px 10px rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            transition: left 0.5s ease;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 20px 40px rgba(255, 154, 174, 0.6),
+                inset 0 2px 10px rgba(255, 255, 255, 0.4);
+        }
+
+        .download-btn:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        .download-btn svg {
+            width: 28px;
+            height: 28px;
+            animation: wiggle 2s infinite ease-in-out;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        .download-info {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: var(--warm-gray);
+        }
+
+        /* Features section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 30px rgba(230, 230, 250, 0.4);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(230, 230, 250, 0.6);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.3rem;
+            color: var(--dark-text);
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--warm-gray);
+            line-height: 1.6;
+        }
+
+        /* Stats section */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .stat-number {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--sakura-dark), var(--mint-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--warm-gray);
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            color: var(--warm-gray);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--sakura-dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--mint-dark);
+        }
+
+        /* Loading state */
+        .loading {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .loading::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+            }
+
+            .download-btn {
+                font-size: 1.2rem;
+                padding: 18px 35px;
+            }
+
+            .mascot-container {
+                width: 150px;
+                height: 150px;
+            }
+
+            .hero {
+                padding: 40px 20px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="mascot-container">
+                <div class="mascot-glow"></div>
+                <img src="mascot.png" alt="Cute Kana Mascot" class="mascot" id="mascot-img">
+            </div>
+
+            <div class="version-badge" id="version-badge">
+                <span class="sparkle">✨</span>
+                <span id="version-text">Loading version...</span>
+                <span class="sparkle">✨</span>
+            </div>
+
+            <h1>Cute Kana</h1>
+            <p class="tagline">Learn Japanese the Kawaii Way 🌸</p>
+
+            <div class="download-section">
+                <a href="#" class="download-btn loading" id="download-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span id="btn-text">Loading...</span>
+                </a>
+                <p class="download-info" id="download-info">Fetching latest release...</p>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">342</div>
+                <div class="stat-label">Characters</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Mini Games</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Fun</div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features">
+            <div class="feature-card">
+                <span class="feature-icon">🈳</span>
+                <h3>Character Learning</h3>
+                <p>92 Kana characters + 250 JLPT Kanji with stroke order and audio pronunciation</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">✍️</span>
+                <h3>Writing Practice</h3>
+                <p>ML-powered handwriting recognition with guided tracing and 4 practice modes</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎮</span>
+                <h3>Mini Games</h3>
+                <p>Falling Kana, Radical Builder, Match Pairs, Speed Quiz, and Kanji Story</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📝</span>
+                <h3>JLPT Mock Tests</h3>
+                <p>Full N5 and N4 mock exams with realistic timing and detailed analytics</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Made with 🌸 by <a href="https://github.com/deedima3/cute-kana" target="_blank">deedima3</a></p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">
+                <a href="https://github.com/deedima3/cute-kana/releases" target="_blank">View all releases</a> • 
+                <a href="https://github.com/deedima3/cute-kana" target="_blank">Source code</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Fetch latest release from GitHub API
+        async function fetchLatestRelease() {
+            const owner = 'deedima3';
+            const repo = 'cute-kana';
+            const apiUrl = `https://api.github.com/repos/${owner}/${repo}/releases/latest`;
+            
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) throw new Error('Failed to fetch release');
+                
+                const release = await response.json();
+                updateUI(release);
+            } catch (error) {
+                console.error('Error fetching release:', error);
+                showError();
+            }
+        }
+
+        function updateUI(release) {
+            const versionText = document.getElementById('version-text');
+            const downloadBtn = document.getElementById('download-btn');
+            const btnText = document.getElementById('btn-text');
+            const downloadInfo = document.getElementById('download-info');
+            
+            // Update version badge
+            versionText.textContent = `Latest: ${release.tag_name}`;
+            
+            // Find APK asset
+            const apkAsset = release.assets.find(asset => asset.name.endsWith('.apk'));
+            
+            if (apkAsset) {
+                // Update download button
+                downloadBtn.href = apkAsset.browser_download_url;
+                downloadBtn.classList.remove('loading');
+                btnText.textContent = `Download APK (${formatFileSize(apkAsset.size)})`;
+                
+                // Update info text
+                const date = new Date(release.published_at).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                downloadInfo.textContent = `Released on ${date} • ${release.name}`;
+            } else {
+                // No APK found, link to release page
+                downloadBtn.href = release.html_url;
+                downloadBtn.classList.remove('loading');
+                btnText.textContent = 'View Release';
+                downloadInfo.textContent = 'No APK available for this release';
+            }
+        }
+
+        function showError() {
+            const versionText = document.getElementById('version-text');
+            const downloadBtn = document.getElementById('download-btn');
+            const btnText = document.getElementById('btn-text');
+            const downloadInfo = document.getElementById('download-info');
+            
+            versionText.textContent = 'Latest Release';
+            downloadBtn.href = 'https://github.com/deedima3/cute-kana/releases/latest';
+            downloadBtn.classList.remove('loading');
+            btnText.textContent = 'Get Latest Version';
+            downloadInfo.textContent = 'Click to view all releases';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', fetchLatestRelease);
+
+        // Check if mascot image loads, use fallback if not
+        document.getElementById('mascot-img').addEventListener('error', function() {
+            this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI5MCIgZmlsbD0iI0ZGQjdDNSIvPgo8dGV4dCB4PSIxMDAiIHk9IjExNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI4MCIgZmlsbD0iI0ZGZmZmZiI+8j+S9nOeJqzwvdGV4dD4KPC9zdmc+';
+        });
+    </script>
+</body>
+</html>
