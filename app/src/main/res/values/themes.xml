@@ -6,11 +6,19 @@
         <item name="android:navigationBarColor">@color/cream</item>
         <item name="android:windowLightNavigationBar">true</item>
     </style>
-    
-    <!-- Splash Screen Theme -->
-    <style name="Theme.CuteKana.Splash" parent="Theme.CuteKana">
-        <item name="android:windowBackground">@drawable/splash_screen</item>
+
+    <!-- Splash Screen Theme - Using AndroidX SplashScreen API -->
+    <style name="Theme.CuteKana.Splash" parent="Theme.SplashScreen">
+        <!-- Use the app theme as the parent for the final theme -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_logo</item>
+        <item name="windowSplashScreenBackground">@color/sakura_pink</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/sakura_pink</item>
+        <item name="postSplashScreenTheme">@style/Theme.CuteKana</item>
+
+        <!-- Status and navigation bar colors -->
         <item name="android:statusBarColor">@color/sakura_pink</item>
         <item name="android:navigationBarColor">@color/sakura_pink</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
     </style>
 </resources>

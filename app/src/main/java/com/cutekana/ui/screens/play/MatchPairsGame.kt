@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.cutekana.data.audio.SoundEffectManager
 import com.cutekana.ui.components.CuteButton
 import com.cutekana.ui.theme.*
 import com.cutekana.ui.viewmodel.PlayViewModel
@@ -40,6 +41,12 @@ fun MatchPairsGame(
     var isChecking by remember { mutableStateOf(false) }
     var showGameOver by remember { mutableStateOf(false) }
     
+    // Initialize sound effects
+    DisposableEffect(Unit) {
+        SoundEffectManager.initialize()
+        onDispose { SoundEffectManager.release() }
+    }
+    
     // Initialize game
     LaunchedEffect(Unit) {
         if (gameState.cards.isEmpty()) {
@@ -51,6 +58,7 @@ fun MatchPairsGame(
     LaunchedEffect(gameState.matchedPairs) {
         if (gameState.matchedPairs == gameState.totalPairs && gameState.totalPairs > 0) {
             delay(500)
+            SoundEffectManager.playVictory()
             showGameOver = true
             viewModel.updateHighScore(PlayGameMode.MATCH_PAIRS, gameState.score)
         }
@@ -153,6 +161,7 @@ fun MatchPairsGame(
                                                 // Check match
                                                 if (selectedCard?.content == card.content) {
                                                     // Match!
+                                                    SoundEffectManager.playMatch()
                                                     gameState = gameState.matchPair(selectedCard!!.id, card.id)
                                                     gameState = gameState.addScore(50)
                                                     selectedCard = null

@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.cutekana.data.audio.SoundEffectManager
 import com.cutekana.ui.components.CuteButton
 import com.cutekana.ui.theme.*
 import com.cutekana.ui.viewmodel.PlayViewModel
@@ -39,6 +40,12 @@ fun SpeedQuizGame(
     var gameStarted by remember { mutableStateOf(false) }
     var showGameOver by remember { mutableStateOf(false) }
     
+    // Initialize sound effects
+    DisposableEffect(Unit) {
+        SoundEffectManager.initialize()
+        onDispose { SoundEffectManager.release() }
+    }
+    
     // Timer
     LaunchedEffect(gameStarted, gameState.isActive) {
         if (gameStarted && gameState.isActive && gameState.timeLeft > 0) {
@@ -48,6 +55,7 @@ fun SpeedQuizGame(
             }
             if (gameState.timeLeft <= 0) {
                 gameState = gameState.copy(isActive = false)
+                SoundEffectManager.playGameOver()
                 showGameOver = true
                 viewModel.updateHighScore(PlayGameMode.SPEED_QUIZ, gameState.score)
             }
@@ -190,16 +198,18 @@ fun SpeedQuizGame(
                             
                             Button(
                                 onClick = {
-                                    if (!showResult) {
-                                        selectedAnswer = option
-                                        isCorrect = option == gameState.correctAnswer
-                                        showResult = true
-                                        
-                                        if (isCorrect) {
-                                            gameState = gameState.correct(10 + gameState.timeLeft)
-                                        } else {
-                                            gameState = gameState.wrong()
-                                        }
+                                if (!showResult) {
+                                    selectedAnswer = option
+                                    isCorrect = option == gameState.correctAnswer
+                                    showResult = true
+                                    
+                                    if (isCorrect) {
+                                        SoundEffectManager.playCorrect()
+                                        gameState = gameState.correct(10 + gameState.timeLeft)
+                                    } else {
+                                        SoundEffectManager.playWrong()
+                                        gameState = gameState.wrong()
+                                    }
                                         
                                         // Next question after delay
                                         coroutineScope.launch {

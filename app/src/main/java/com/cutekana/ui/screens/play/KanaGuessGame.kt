@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.cutekana.data.audio.SoundEffectManager
 import com.cutekana.ui.components.CuteButton
 import com.cutekana.ui.theme.*
 import com.cutekana.ui.viewmodel.PlayViewModel
@@ -38,6 +39,12 @@ fun KanaGuessGame(
     var selectedAnswer by remember { mutableStateOf<String?>(null) }
     var showResult by remember { mutableStateOf(false) }
     var showGameOver by remember { mutableStateOf(false) }
+    
+    // Initialize sound effects
+    DisposableEffect(Unit) {
+        SoundEffectManager.initialize()
+        onDispose { SoundEffectManager.release() }
+    }
     
     // Initialize game based on config
     LaunchedEffect(gameConfig) {
@@ -154,8 +161,10 @@ fun KanaGuessGame(
                                 
                                 val isCorrect = answer == gameState.currentAnswer
                                 gameState = if (isCorrect) {
+                                    SoundEffectManager.playCorrect()
                                     gameState.correctAnswer()
                                 } else {
+                                    SoundEffectManager.playWrong()
                                     gameState.wrongAnswer()
                                 }
                                 
@@ -164,6 +173,7 @@ fun KanaGuessGame(
                                     // End game after 20 questions
                                     coroutineScope.launch {
                                         delay(1000)
+                                        SoundEffectManager.playGameOver()
                                         showGameOver = true
                                         viewModel.updateHighScore(PlayGameMode.KANA_GUESS, gameState.score)
                                     }

@@ -96,7 +96,10 @@ dependencies {
     
     // DataStore
     implementation(libs.androidx.datastore.preferences)
-    
+
+    // SplashScreen
+    implementation(libs.androidx.core.splashscreen)
+
     // TensorFlow Lite
     implementation(libs.tensorflow.lite)
     implementation(libs.tensorflow.lite.support)

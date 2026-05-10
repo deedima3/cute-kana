@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.cutekana.data.audio.SoundEffectManager
 import com.cutekana.ui.components.CuteButton
 import com.cutekana.ui.theme.*
 import com.cutekana.ui.viewmodel.PlayViewModel
@@ -37,6 +38,12 @@ fun RadicalBuilderGame(
     var showSuccess by remember { mutableStateOf(false) }
     var showGameComplete by remember { mutableStateOf(false) }
     
+    // Initialize sound effects
+    DisposableEffect(Unit) {
+        SoundEffectManager.initialize()
+        onDispose { SoundEffectManager.release() }
+    }
+    
     // Initialize
     LaunchedEffect(Unit) {
         if (gameState.currentKanji == null) {
@@ -47,6 +54,7 @@ fun RadicalBuilderGame(
     // Check win
     LaunchedEffect(gameState.currentLevel, gameState.completedLevels) {
         if (gameState.completedLevels >= 5 && !showGameComplete) {
+            SoundEffectManager.playVictory()
             showGameComplete = true
             viewModel.updateHighScore(PlayGameMode.RADICAL_BUILDER, gameState.score)
         }
@@ -221,8 +229,11 @@ fun RadicalBuilderGame(
                                             text = "✓ Check",
                                             onClick = {
                                                 if (gameState.isCorrect()) {
+                                                    SoundEffectManager.playCorrect()
                                                     showSuccess = true
                                                     gameState = gameState.completeLevel()
+                                                } else {
+                                                    SoundEffectManager.playWrong()
                                                 }
                                             }
                                         )

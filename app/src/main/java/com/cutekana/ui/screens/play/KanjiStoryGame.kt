@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.cutekana.data.audio.SoundEffectManager
 import com.cutekana.ui.components.CuteButton
 import com.cutekana.ui.theme.*
 import com.cutekana.ui.viewmodel.PlayViewModel
@@ -35,6 +36,12 @@ fun KanjiStoryGame(
     var selectedAnswers by remember { mutableStateOf<Map<Int, String>>(emptyMap()) }
     var showResults by remember { mutableStateOf(false) }
     var score by remember { mutableIntStateOf(0) }
+    
+    // Initialize sound effects
+    DisposableEffect(Unit) {
+        SoundEffectManager.initialize()
+        onDispose { SoundEffectManager.release() }
+    }
     
     val scenes = kanjiStoryScenes
     
@@ -183,6 +190,7 @@ fun KanjiStoryGame(
                                     .padding(vertical = 4.dp)
                                     .clickable {
                                         selectedAnswers = selectedAnswers + (currentScene to option.kanji)
+                                        SoundEffectManager.playClick()
                                     },
                                 shape = RoundedCornerShape(16.dp),
                                 colors = CardDefaults.cardColors(
@@ -272,6 +280,15 @@ fun KanjiStoryGame(
                                         score = scenes.mapIndexed { index, scene ->
                                             if (selectedAnswers[index] == scene.correctAnswer) 20 else 0
                                         }.sum()
+                                        // Play appropriate sound
+                                        val correctCount = scenes.filterIndexed { index, scene ->
+                                            selectedAnswers[index] == scene.correctAnswer
+                                        }.size
+                                        when {
+                                            correctCount == scenes.size -> SoundEffectManager.playVictory()
+                                            correctCount >= scenes.size / 2 -> SoundEffectManager.playCorrect()
+                                            else -> SoundEffectManager.playGameOver()
+                                        }
                                         showResults = true
                                         viewModel.updateHighScore(PlayGameMode.KANJI_STORY, score)
                                     },
